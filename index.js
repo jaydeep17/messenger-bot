@@ -58,6 +58,49 @@ class Bot extends EventEmitter {
     })
   }
 
+  setPersistentMenu (buttons, cb) {
+    if (!cb) cb = Function.prototype
+
+    request({
+      method: 'POST',
+      url: 'https://graph.facebook.com/v2.6/me/thread_settings',
+      qs: {
+        access_token: this.token
+      },
+      json: {
+        setting_type: 'call_to_actions',
+        thread_state: 'existing_thread',
+        call_to_actions: buttons
+      }
+    }, (err, res, body) => {
+      if (err) return cb(err)
+      if (body.error) return cb(body.error)
+
+      cb(null, body)
+    })
+  }
+
+  removePersistentMenu (cb) {
+    if (!cb) cb = Function.prototype
+
+    request({
+      method: 'DELETE',
+      url: 'https://graph.facebook.com/v2.6/me/thread_settings',
+      qs: {
+        access_token: this.token
+      },
+      json: {
+        setting_type: 'call_to_actions',
+        thread_state: 'existing_thread'
+      }
+    }, (err, res, body) => {
+      if (err) return cb(err)
+      if (body.error) return cb(body.error)
+
+      cb(null, body)
+    })
+  }
+
   middleware () {
     return (req, res) => {
       // we always write 200, otherwise facebook will keep retrying the request

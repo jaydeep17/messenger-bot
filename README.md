@@ -95,6 +95,12 @@ Sends a message with the `payload` to the target `recipient`, and calls the call
 * `payload` - Object: The message payload. Should follow the [Send API format](https://developers.facebook.com/docs/messenger-platform/send-api-reference).
 * `callback` - Function: Called with `(err, info)` once the request has completed. `err` contains an error, if any, and `info` contains the response from Facebook, usually with the new message's ID.
 
+#### `bot.setPersistentMenu(buttons, callback)`
+
+Sets the persistent menu for the bot with the given buttons. See [Persistent Menu API](https://developers.facebook.com/docs/messenger-platform/thread-settings/persistent-menu)
+
+* `buttons` - Array: The Call to action buttons. Should be an array of [menu_items](https://developers.facebook.com/docs/messenger-platform/thread-settings/persistent-menu#menu_item)
+
 #### `bot.getProfile(target, callback)`
 
 Returns profile information of the `target`, called in the `callback`. See [User Profile API](https://developers.facebook.com/docs/messenger-platform/send-api-reference#user_profile_request).
